@@ -13,8 +13,9 @@ let sumEl = document.getElementById("sum-el")
 let cardsEl = document.getElementById("cards-el")
 let playerEl = document.getElementById("player-el")
 
+function player_status(){
 playerEl.textContent = player.name + ": $" + player.chips
-
+}
 function getRandomCard() {
     let randomNumber = Math.floor( Math.random()*13 ) + 1
     if (randomNumber > 10) {
@@ -27,6 +28,7 @@ function getRandomCard() {
 }
 
 function startGame() {
+    player_status()
     isAlive = true
     let firstCard = getRandomCard()
     let secondCard = getRandomCard()
@@ -36,6 +38,7 @@ function startGame() {
 }
 
 function renderGame() {
+   
     cardsEl.textContent = "Cards: "
     for (let i = 0; i < cards.length; i++) {
         cardsEl.textContent += cards[i] + " "
@@ -47,19 +50,26 @@ function renderGame() {
     } else if (sum === 21) {
         message = "You've got Blackjack!"
         hasBlackJack = true
-    } else {
+        player.chips=player.chips*2
+        player_status()
+    }
+    else {
         message = "You're out of the game!"
         isAlive = false
+        player.chips=player.chips/2;
+        player_status()
     }
     messageEl.textContent = message
 }
 
-
+let count=0;
 function newCard() {
+   
     if (isAlive === true && hasBlackJack === false) {
         let card = getRandomCard()
         sum += card
         cards.push(card)
         renderGame()        
     }
+    
 }
