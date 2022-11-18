@@ -26,15 +26,18 @@ function getRandomCard() {
         return randomNumber
     }
 }
-
+while(player.chips>1){
 function startGame() {
     player_status()
     isAlive = true
+    hasBlackJack=false
     let firstCard = getRandomCard()
     let secondCard = getRandomCard()
     cards = [firstCard, secondCard]
     sum = firstCard + secondCard
     renderGame()
+   
+}
 }
 
 function renderGame() {
@@ -51,13 +54,13 @@ function renderGame() {
         message = "You've got Blackjack!"
         hasBlackJack = true
         player.chips=player.chips*2
-        player_status()
+       hasBlackJack=false
     }
     else {
         message = "You're out of the game!"
         isAlive = false
         player.chips=player.chips/2;
-        player_status()
+       
     }
     messageEl.textContent = message
 }
